@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>轮播图</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .content{
+            width: 520px;
+            height: 280px;
+            margin: 100px auto;
+            position: relative;
+            overflow: hidden;
+        }
+        .imgList{
+            list-style: none;
+            width: 3120px;
+            height: 280px;
+            position: absolute;
+            
+        }
+        ul li{
+            float: left;
+        }
+        .nav{
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+        }
+        .nav a{
+            width: 20px;
+            height: 20px;
+            float: left;
+            background:pink;
+            margin: 0 5px;
+        }
+    </style>
+    <script src="move.js"></script>
+    <script>
+        window.onload=function(){
+            var imgList=document.querySelector(".imgList");
+            var allA=document.getElementsByTagName("a");
+            var imgArr=document.getElementsByTagName("img");
+            
+            var index=0;
+            allA[index].style.backgroundColor="#ccc";
+            for(var i=0;i<allA.length;i++){
+                allA[i].num=i;
+
+                allA[i].onclick=function(){
+                    clearInterval(timer);
+                    index=this.num;
+                    //imgList.style.left=-520*index+"px";
+                    setA();
+                    move(imgList,"left",-520*index,8,function(){
+                        autoChange();
+                    });
+                }
+            }
+            autoChange();
+
+            function setA(){
+                if(index>=imgArr.length-1){
+                    index=0;
+                    imgList.style.left=0;
+                }
+                for(var i=0;i<allA.length;i++){
+                    allA[i].style.backgroundColor="";
+                }
+                allA[index].style.backgroundColor="#ccc";
+            }
+            var timer;
+            function autoChange(){
+                timer=setInterval(function(){
+                    index++;
+                    index %=imgArr.length;
+                    move(imgList,"left",-520*index,8,function(){
+                        setA();
+                    });
+                },2000);
+            }
+        }
+            
+    </script>
+</head>
+<body>
+    <div class="content">
+        <ul class="imgList">
+            <li><img src="images/01.jpg"></li>
+            <li><img src="images/02.jpg"></li>
+            <li><img src="images/03.jpg"></li>
+            <li><img src="images/04.jpg"></li>
+            <li><img src="images/05.jpg"></li>
+            <li><img src="images/01.jpg"></li>
+        </ul>
+        <div class="nav">
+            <a href="javascript:;"></a>
+            <a href="javascript:;"></a>
+            <a href="javascript:;"></a>
+            <a href="javascript:;"></a>
+            <a href="javascript:;"></a>
+        </div>
+    </div>
+</body>
+</html>

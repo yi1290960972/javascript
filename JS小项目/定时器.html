@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>定时器应用</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #div1{
+            width: 100px;
+            height: 100px;
+            background:red;
+            left:0;
+            position: absolute;
+        }
+        #div2{
+            width: 100px;
+            height: 100px;
+            background:blue;
+            left:0;
+            position: absolute;
+            top:200px;
+        }
+        #div3{
+            width: 100px;
+            height: 100px;
+            background:skyblue;
+            left:0;
+            position: absolute;
+            top:400px;
+        }
+    </style>
+    <script>
+        window.onload=function(){
+            var oBtn1=document.getElementById("btn1");
+            var oDiv1=document.getElementById("div1");
+            var oBtn2=document.getElementById("btn2");
+            var oDiv2=document.getElementById("div2");
+            var oBtn3=document.getElementById("btn3");
+            var oBtn4=document.getElementById("btn4");
+            var oDiv3=document.getElementById("div3");
+
+            oBtn1.onclick=function(){
+                move(oDiv1,"left",800,6);
+            }
+            oBtn2.onclick=function(){
+                move(oDiv1,"left",0,10);
+            }
+            oBtn3.onclick=function(){
+                move(oDiv2,"left",800,15);
+            }
+            oBtn4.onclick=function(){
+                move(oDiv3,"width",800,10,function(){
+                    move(oDiv3,"height",400,10,function(){
+                        move(oDiv3,"width",100,10,function(){
+                            move(oDiv3,"height",100,10);
+                        })
+                    })
+                })
+            }
+
+        }
+        
+        //var timer;
+        function move(obj,attr,target,speed,callback){
+            clearInterval(obj.timer);
+            var current=parseInt(getStyle(obj,attr));
+            if(current>target){
+                speed=-speed;
+            }
+            obj.timer=setInterval(function(){
+                var oldValue=parseInt(getStyle(obj,attr));
+
+                var newValue=oldValue+speed;
+
+                if((newValue<target && speed<0) ||(newValue>target && speed>0)){
+                    newValue=target;
+                }
+                obj.style[attr]=newValue+"px";
+                if(newValue==target){
+                    clearInterval(obj.timer);
+                    callback();
+                }
+            },30);
+        }
+
+        function getStyle(obj,name){
+            if(window.getComputedStyle){
+                return getComputedStyle(obj,null)[name];
+            }else{
+                return obj.currentStyle[name];
+            }
+        }
+    </script>
+</head>
+<body>
+    <button id="btn1">让div1向右运动</button>
+    <button id="btn2">让div1向左运动</button>
+    <button id="btn3">让div2向右运动</button>
+    <button id="btn4">测试动画</button>
+    <br><br>
+    <div id="div1"></div>
+    <div style="height: 1000px;width:0; border-left: 1px solid #000; left: 800px; position: absolute; top:0;"></div>
+    <div id="div2"></div>
+    <div id="div3"></div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Gallery</title>
+    <link rel="stylesheet" href="scripts/layout.css" type="text/css">
+</head>
+<body>
+    <h1>Snapshots</h1>
+    <ul id="imagegallery">
+        <li><a href="images/dang.jpg" onclick="showPic(this); return false;" title="蛋糕">
+            <img src="images/dang.jpg" alt="dangao"></a></li>
+        <li><a href="images/makal.jpg" onclick="showPic(this); return false;" title="马卡龙 ">
+            <img src="images/makal.jpg" alt="makal"></a></li>
+        <li><a href="images/min.png" onclick="showPic(this); return false;" title="甜点 ">
+            <img src="images/min.png" alt="minidangao"></a></li>
+        <li><a href="images/xie.jpg" onclick="showPic(this);return false;" title="写字楼">
+            <img src="images/xie.jpg" alt="xiezilou"></a></li>
+    </ul>
+    <img id="placeholder" src="images/sxcb.jpg" alt="my image gallery">
+    <p id="description">Choose an image.</p>
+    <script type="text/javascript" src="scripts/showPic.js"></script>
+
+    
+</body>
+</html>

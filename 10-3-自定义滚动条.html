@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+#parent{width:600px; height:20px; background:#CCC; position:relative; margin:10px auto;}
+#div1 {width:20px; height:20px; background:red; position:absolute; left:0; top:0;}
+#div2 {width:0px; height:0px; background:green;}
+</style>
+<script>
+window.onload=function(event)
+{
+	var oDiv=document.getElementById('div1');
+	var oDiv2=document.getElementById('div2');
+	var oParent=document.getElementById('parent');
+	
+	var disX=0;
+	oDiv.onmousedown=function(event)
+	{
+		disX=event.clientX-oDiv.offsetLeft;
+		
+				
+		document.onmousemove=function(event)
+		{
+			var l=event.clientX-disX;
+			
+			if(l<0)
+			{
+				l=0;
+			}
+			if(l>oParent.offsetWidth-oDiv.offsetWidth)
+			{
+				l=oParent.offsetWidth-oDiv.offsetWidth;
+			}
+			
+			
+			oDiv.style.left=l+'px';
+			var scale=l/(oParent.offsetWidth-oDiv.offsetWidth);
+			
+			document.title=scale;
+			
+			oDiv2.style.width=400*scale+'px';
+			oDiv2.style.height=400*scale+'px';
+		}
+		document.onmouseup=function()
+		{
+			document.onmousemove=null;
+			document.onmouseup=null;
+			
+			
+		}
+		return false;
+	}
+	
+	
+};
+</script>
+</head>
+
+<body>
+<div id="parent">
+	<div id="div1"></div>
+</div>	
+<div id="div2">
+</div>
+</body>
+</html>

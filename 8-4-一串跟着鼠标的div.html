@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>一连串跟着鼠标移动的div</title>
+	<style>
+		div{
+			width:20px; 
+			height:20px; 
+			background:red; 
+			position:absolute;
+		}
+	</style>
+	<script>
+		function getPos(ev)
+		{
+			var st=document.documentElement.scrollTop;
+			var sl=document.documentElement.scrollLeft;
+			return {x:ev.clientX+sl, y:ev.clientY+st};
+		}
+		document.onmousemove=function(ev)
+		{
+			var aDiv=document.getElementsByTagName('div');
+			var ev=event||window.event;
+			var pos=getPos(ev);
+			
+			for(var i=aDiv.length-1;i>0;i--)
+			{
+				aDiv[i].style.left=aDiv[i-1].offsetLeft+'px';
+				aDiv[i].style.top=aDiv[i-1].offsetTop+'px';
+			}
+			aDiv[0].style.left=pos.x+'px';
+			aDiv[0].style.top=pos.y+'px';
+			
+		}
+	</script>
+</head>
+
+<body>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+</body>
+</html>
